@@ -7,7 +7,7 @@ Kubernetes is a portable, extensible open-source container orchestration system 
 
 (**SIDE NOTE**: *"Kubernetes" is often abbreviated as "K8s"* (*i.e. K + 8 letters + s*))
 
-The name Kubernetes originates from Greek, meaning "helmsman" or "pilot". Kubernetes is a software, and can be installed in any computer system. In practice, Kubernetes runs on top of Docker and automates Docker's operations. Docker is an open-source software platform that allows you to build, test, and deploy applications quickly by enabling you to build, deploy, run, update and manage containers.
+The name Kubernetes originates from Greek, meaning "helmsman" or "pilot". Kubernetes is a software platform that can be installed in any computer system. In practice, Kubernetes runs on top of Docker and automates Docker's operations. Docker is an open-source software platform that allows you to build, test, and deploy applications quickly by enabling you to build, deploy, run, update and manage containers.
 
 ## Containerised applications
 Containers are standardized, executable components that combine application source code with the operating system (OS) libraries and dependencies required to run that code in any environment. Docker packages software into units called containers that have everything the software needs to run including libraries, system tools, code, and runtime.
@@ -69,6 +69,6 @@ As a container orchestration platform, Kubernetes offers the above services and 
 A pod is a logical wrapper within  Kubernetes for one or more containers. Just as a container is the basic software unit of Docker, so is pod the basic software unit of Kubernetes.
 
 ## Approach
-However, due to the complexity of installing, configuring and managing Kubernetes. We shall be using Azure as the cloud computing platform to develop and deploy applications, and we shall then use Kubernetes to orchestrate these applications. To do this, we shall use AKS (Azure Kubernetes Service), which offers the quickest way to start developing and deploying cloud-native apps (i.e. apps that are stored and run on the cloud) in Azure with built-in code-to-cloud pipelines and guardrails. As a Kubernetes service hosted on the Azure platform, AKS handles critical tasks, like health monitoring and maintenance, and is highly available, secure and fully managed.
+Due to the complexity of installing, configuring and managing Kubernetes on a personal computer system, ee shall be using Azure as the cloud computing platform to access Kubernetes servies. To do this, we shall use AKS (Azure Kubernetes Service), which offers the quickest way to start developing and deploying cloud-native apps (i.e. apps that are stored and run on the cloud) in Azure with built-in code-to-cloud pipelines and guardrails. As a Kubernetes service hosted on the Azure platform, AKS handles critical tasks, like health monitoring and maintenance, and is highly available, secure and fully managed.
 
 > Written with [StackEdit](https://stackedit.io/).
