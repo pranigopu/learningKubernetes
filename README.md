@@ -1,17 +1,27 @@
 
 # Learning Kubernetes
-## Resources
+## Official documentation
 - https://kubernetes.io/docs/home/
 
 ## Introduction
-Kubernetes is a portable, extensible open-source container orchestration system for automating software deployment, scaling, and management. In other words, Kubernetes is an open-source orchestration engine for automating deployment, scaling, and management of *containerized applications* i.e. applications packaged into containers. This open-source project is hosted by the *Cloud Native Computing Foundation*.
+**Definition 1**:
+Kubernetes is a (1) portable, (2) extensible and (3) open-source container orchestration system for _automating_ software deployment, scaling, and management.
 
-(**SIDE NOTE**: *"Kubernetes" is often abbreviated as "K8s"* (*i.e. K + 8 letters + s*))
+**Definition 2**:
+In other words, Kubernetes is an open-source orchestration engine for automating deployment, scaling, and management of _containerized applications_ i.e. applications packaged into containers.
 
-The name Kubernetes originates from Greek, meaning "helmsman" or "pilot". Kubernetes is a software platform that can be installed in any computer system. In practice, Kubernetes runs on top of a container deployment platform such as Docker and automates this platform's operations.
+**NOTE**:
+Kubernetes is a software platform that can be installed in any computer system. In practice, Kubernetes runs on top of a container deployment platform such as Docker and automates this platform's operations.
+
+**SIDE NOTES**:
+1.  _The Kubernetes open-source project is hosted by the Cloud Native Computing Foundation._
+2. _"Kubernetes" is often abbreviated as "K8s"* (*i.e. K + 8 letters + s*)_
+3.  _The name Kubernetes originates from Greek, meaning "helmsman" or "pilot"._
 
 ## Containers
-Containers are standardized, executable components that combine application source code with the operating system (OS) libraries and dependencies required to run that code in any environment. They virtualise the software layers above the OS level. In other words, a container is an isolated environment for your code, meaning a container has no knowledge of your machine's OS, or your files.
+Containers are standardized, executable components that combine application source code with the operating system (OS) libraries and dependencies required to run that code in any environment.
+
+In other words, containers virtualise the software layers above the OS level. In other words, a container is an isolated environment for your code, meaning a container has no knowledge of your machine's OS or your files.
 
 Let us compare and contrast containerised app deployment with other app deployment methods...
 
@@ -22,7 +32,7 @@ Let us compare and contrast containerised app deployment with other app deployme
 	- Multiple applications run on one physical server, often leading to resource allocation, process scheduling and performance issues
 	- Multiple applications run on one physical server each, often leading to resource wastage
 
-### Virtualised deployment
+### Virtualised app deployment
 
 - Virtual machines are created and run on top of physical servers, with possibly multiple VMs running on one physical server's CPU
 - Logically, applications are run on mutually isolated VMs
