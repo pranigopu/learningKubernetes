@@ -69,6 +69,6 @@ As a container orchestration platform, Kubernetes offers the above services and 
 A pod is a logical wrapper within  Kubernetes for one or more containers. Just as a container is the basic software unit of Docker, so is pod the basic software unit of Kubernetes.
 
 ## Approach
-Due to the complexity of installing, configuring and managing Kubernetes on a personal computer system, ee shall be using Azure as the cloud computing platform to access Kubernetes servies. To do this, we shall use AKS (Azure Kubernetes Service), which offers the quickest way to start developing and deploying cloud-native apps (i.e. apps that are stored and run on the cloud) in Azure with built-in code-to-cloud pipelines and guardrails. As a Kubernetes service hosted on the Azure platform, AKS handles critical tasks, like health monitoring and maintenance, and is highly available, secure and fully managed.
+Due to the complexity of installing, configuring and managing Kubernetes on a personal computer system, we shall be using Azure as the cloud computing platform to access Kubernetes servies. To do this, we shall use AKS (Azure Kubernetes Service), which offers the quickest way to start developing and deploying cloud-native apps (i.e. apps that are stored and run on the cloud) in Azure with built-in code-to-cloud pipelines and guardrails. As a Kubernetes service hosted on the Azure platform, AKS handles critical tasks, like health monitoring and maintenance, and is highly available, secure and fully managed.
 
 > Written with [StackEdit](https://stackedit.io/).
