@@ -1,6 +1,6 @@
 # Docker
 ## Relevance of Docker in Kubernetes
-Kubernetes is a container orchestration engine, but it does not build and deploy containers directly. Instead, it wraps containers into "pods", which creates the need for software to actually build and deploy the containers themselves. This is where Docker comes in. In practice, Kubernetes is the engine that automates the operations of Docker.
+Kubernetes is a container orchestration engine, but it does not build and deploy containers directly. Instead, it wraps containers into "pods", which creates the need for software to actually build and deploy the containers themselves. This is where Docker comes in. In practice, Kubernetes is the engine that automates and expands on the operations of Docker.
 
 ## Introduction
 **Docker** is a set of open source platform-as-a-service products that use OS-level virtualisation (also called containerisation) to deliver software in packages called containers. **Docker Engine** is the software platform (that runs on top of an OS ) that hosts the containers, allowing you to build, test, and deploy applications via containers. Containers have the necessary software environment for the applications to run, i.e. they have everything the applications need to run including libraries, system tools, code, and runtime.
