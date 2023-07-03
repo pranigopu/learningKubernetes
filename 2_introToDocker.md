@@ -141,57 +141,57 @@ The keyword "docker" refers to the client.
 
 ### Check Docker Engine version...
 View Docker Engine's version...
-`docker version`
+```docker version```
 
 ### Login to + logout of Docker Hub...
 Login...
-`docker login -u <username> -p <password>`
+```docker login -u <username> -p <password>```
 Logout
-`docker logout`
+```docker logout```
 
 ### Pulling Docker image from Docker Hub...
-`docker pull <image name>`
+```docker pull <image name>```
 This downloads the Docker image into your system, thus being accessible by the Docker Engine running on your system, i.e. the image will be a part of the host's software environment.
 
 ### Creating + starting Docker container...
 Running the downloaded image. This will create and start the container based on the image, and thus, this will run the application within the container...
-`docker run --name <container name> -p <local port to run container app> -d <image name>`
+```docker run --name <container name> -p <local port to run container app> -d <image name>```
 The `--name` argument is to give a chosen name to the created and started container, and it is optional; if you do not specify a name for the container the system will pick one instead. The container's application will run on the specified port number of the system and the IP address of this running instance of the application would be created accordingly (system address ("localhost", if run locally) + port number).
 
 ### Stopping and starting a created container...
-`docker stop <container name or ID>`
-`docker start <container name or ID>`
+```docker stop <container name or ID>```
+```docker start <container name or ID>```
 The `docker run` command creates and starts a new container, while the `docker stop` and `docker start` commands deal with already created containers. To restart (i.e. stop then automatically start) container:
-`docker restart <container name or ID>`
+```docker restart <container name or ID>```
 
 ### Listing running containers...
-`docker ps`
+```docker ps```
 The options for this command are:
 
-- `docker -a`
+- ```docker -a```
 	Lists all created containers, not only running containers. However, it does not show removed containers, only existing containers.
 - `docker -q`
 	This lists only the container IDs.
 
 ### Listing downloaded images...
-`docker images`
+```docker images```
 This will also list each image's ID.
 
 ### Check other container-related information...
 View live statistics of container resource usage
-`docker stats`
+```docker stats```
 
 Display running processes of a container...
-`docker top <container name or ID>`
+```docker top <container name or ID>```
 
 ### Removing (i.e. deleting from host) a container...
-`docker rm <container name or ID>`
+```docker rm <container name or ID>```
 Note that you must first stop the container before attempting to remove it;  the daemons will prevent your from removing running containers. However, you can force the removal of a running container using the `-f` option:
-`docker rm -f <container name or ID>`
+```docker rm -f <container name or ID>```
 
 ### Removing (i.e. deleting from host) a downloaded image...
-`docker rmi <image ID>`
+```docker rmi <image ID>```
 
 - Opening the container's terminal (i.e. a terminal running within the container's environment)...
-`docker exec -it <container name or ID> ...`
+```docker exec -it <container name or ID> ...```
 Look up the exact command structure for your particular platform. Also, once in the container's terminal, you can exit it using the `exit` command.
