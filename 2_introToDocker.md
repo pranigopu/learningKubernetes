@@ -139,7 +139,7 @@ Check: [Installation documentation](https://docs.docker.com/engine/install/)
 ## Basic commands
 The keyword "docker" refers to the client.
 
-### Check Docker Engine version...
+### Checking Docker Engine version...
 View Docker Engine's version...
 
 `docker version`
@@ -189,14 +189,18 @@ The options for this command are:
 
 This will also list each image's ID.
 
-### Check other container-related information...
-View live statistics of container resource usage
+### Checking other container-related information...
+View live statistics of container resource usage...
 
 `docker stats`
 
 Display running processes of a container...
 
 `docker top <container name or ID>`
+
+View port mapping of a particular container...
+
+`docker port <container name or ID>`
 
 ### Removing (i.e. deleting from host) a container...
 `docker rm <container name or ID>`
