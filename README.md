@@ -4,16 +4,14 @@
 - https://kubernetes.io/docs/home/
 
 ## Introduction
-**Definition 1**:
-Kubernetes is a (1) portable, (2) extensible and (3) open-source container orchestration system for _automating_ software deployment, scaling, and management.
+**Definition 1**: Kubernetes is a (1) portable, (2) extensible and (3) open-source container orchestration system for _automating_ software deployment, scaling, and management.
 
-**Definition 2**:
-In other words, Kubernetes is an open-source orchestration engine for automating deployment, scaling, and management of _containerized applications_ i.e. applications packaged into containers.
+**Definition 2**: In other words, Kubernetes is an open-source orchestration engine for automating deployment, scaling, and management of _containerized applications_ i.e. applications packaged into containers.
 
-**NOTE**:
-Kubernetes is a software platform that can be installed in any computer system. In practice, Kubernetes runs on top of a container deployment platform such as Docker and automates this platform's operations.
+**NOTE**: Kubernetes is a software platform that can be installed in any computer system. In practice, Kubernetes runs on top of a container deployment platform such as Docker and automates this platform's operations.
 
 **SIDE NOTES**:
+
 1.  _The Kubernetes open-source project is hosted by the Cloud Native Computing Foundation._
 2. _"Kubernetes" is often abbreviated as "K8s"* (*i.e. K + 8 letters + s*)_
 3.  _The name Kubernetes originates from Greek, meaning "helmsman" or "pilot"._
@@ -74,71 +72,5 @@ In a production environment, you need to manage the containers that run the appl
 
 As a container orchestration platform, Kubernetes offers the above services and more.
 
-## Basic concepts
-### Pod
-A pod is a logical wrapper within  Kubernetes for one or more containers. Just as a container is the basic software unit of Docker, so is pod the basic software unit of Kubernetes. Containers are encapsulated within pods.
-
-- Smallest object creatable in Kubernetes
-- Pod: single instance of an app
-- Usually have 1-1 relationship with containers
-	- Pods may have multiple containers (rare cases)
-	- Cannot have multiple containers of same kind in one pod
-- Scaling
-	- Scale up: creating identical pods
-	- Scale down: deleting identical pods
-	- No scaling within pods, only scaling with pods
-
-### ReplicaSet
-### Deployment
-### Service
-An abstraction for pod, sitting on top of pods and acting as a load balancer while keeping a stable virtual ID.
-
-### Imperative vs. declarative configuring/deploying applications in Kubernetes
-
 ## Approach
 Due to the complexity of installing, configuring and managing Kubernetes on a personal computer system, we shall be using Azure as the cloud computing platform to access Kubernetes servies. To do this, we shall use AKS (Azure Kubernetes Service), which offers the quickest way to start developing and deploying cloud-native apps (i.e. apps that are stored and run on the cloud) in Azure with built-in code-to-cloud pipelines and guardrails. As a Kubernetes service hosted on the Azure platform, AKS handles critical tasks, like health monitoring and maintenance, and is highly available, secure and fully managed.
-
-## Kubernetes architecture
-**Master control plane**:
-
-- Master node (1 per node pool)
-	- Container runtime
-	- etcd
-	- kube-scheduler
-		- Creates and provisions pods to nodes
-	- kube apiserver
-		- Frontend for Kubernetes control plane
-		- Exposes Kubernetes API
-	- kube controller manager
-		- Contains multiple controllers for managing Kubernetes service
-			- Node controller (monitors nodes)
-				- For noticing and responding when nodes, containers or endpoints go down
-			- Replication controller (monitors pods)
-				- Decides whether new pods have to be created
-					- If yes, informs kube scheduler
-			- Endpoints controller (monitors services)
-				- Endpoint: recipient of any calls between services
-				- Maintains a service by managing links between services and the underlying pods on which the service runs
-			- Service accound & token controller
-	- cloud controller manager
-		- For running controllers specific to the cloud provider
-		- On-premise Kubernetes clusters (which do not use cloud provider) do not need this
-		- Contains controllers such as:
-			- Node controller
-				- Checks if unresponsive node is deleted in cloud or not
-			- Route controller
-				- Manages routing of requests
-			- Service controller
-				- Load balancing within cloud
-
-**Node pool**:
-
-- Worker node (may be multilple)
-	- Container runtime
-	- kubelet
-		- Agent that runs on every node in the cluster
-		- Responsible for checking if containers are running within pods in the given node
-	- kube proxy
-		- A network proxy that runs on each node in the cluster
-		- Maintains network rules on all nodes in the cluster
-		- Allow network communication to and from the pods (network sessions may be inside or outside the cluster)
