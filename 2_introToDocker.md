@@ -166,10 +166,9 @@ Running the downloaded image. This will create and start the container based on 
 The `--name` argument is to give a chosen name to the created and started container, and it is optional; if you do not specify a name for the container the system will pick one instead. The container's application will run on the specified port number of the system and the IP address of this running instance of the application would be created accordingly (system address ("localhost", if run locally) + port number).
 
 ### Stopping and starting a created container...
-```
-docker stop <container name or ID>
-docker start <container name or ID>
-```
+`docker stop <container name or ID>`
+
+`docker start <container name or ID>`
 
 The `docker run` command creates and starts a new container, while the `docker stop` and `docker start` commands deal with already created containers. To restart (i.e. stop then automatically start) container:
 
