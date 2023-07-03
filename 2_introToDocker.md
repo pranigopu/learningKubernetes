@@ -208,7 +208,8 @@ Note that you must first stop the container before attempting to remove it;  the
 ### Removing (i.e. deleting from host) a downloaded image...
 `docker rmi <image ID>`
 
-- Opening the container's terminal (i.e. a terminal running within the container's environment)...
+### Opening the container's terminal...
+_**(i.e. a terminal running within the container's environment)**_
 
 `docker exec -it <container name or ID> ...`
 
