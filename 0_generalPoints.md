@@ -38,3 +38,12 @@ Unmounting is the inverse process. Here, the OS
 A namespace is a declarative (i.e. explicitly defined) region in a code/ that provides a scope to the identifiers (the names of types, functions, variables, etc.) inside it. Namespaces are used to organize code into logical groups and to prevent name collisions that can occur especially when your code base includes multiple libraries
 
 > Reference: https://learn.microsoft.com/en-us/cpp/cpp/namespaces-cpp?view=msvc-170
+
+### Software agent
+In computer science, a software agent or software AI (artificial intelligence) is a computer program that acts for (_i.e. on behalf of or with the software identity of_) a user or another program with some level of agency (i.e. delegated power and responsibility).
+
+Examples of software agents:
+
+- Monitoring and surveillance agent
+- Data mining agent
+- Shopping agent (buyer bot)
