@@ -8,7 +8,7 @@
 
 **Definition 2**: In other words, Kubernetes is an open-source orchestration engine for automating deployment, scaling, and management of _containerized applications_ i.e. applications packaged into containers.
 
-**NOTE**: Kubernetes is a software platform that can be installed in a computer system (local or remote).
+**NOTE**: _Kubernetes is a software platform that can be installed in a computer system (local or remote)._
 
 **SIDE NOTES**:
 
