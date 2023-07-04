@@ -1,16 +1,15 @@
 # General points
 ## General computing concepts
-### Platform
-A machine (physical or virtual) on which software can be installed or run. The term "machine" can refer to a computer or a hardware device (maybe combined with an operating system) or a virtual environment (such as a virtual machine).
-
-### Software system
-A set of intercommunicating software-based components forming part of a platform.
-
 ### Computing environment
 The computing environment is the collection of hardware, software and network components that support the processing, storage and exchange of information demanded by the software solution.
 
 > Reference: https://www.sciencedirect.com/topics/computer-science/computing-environmen
 
+### Platform
+A machine (physical or virtual) on which software can be installed or run. The term "machine" can refer to a computer or a hardware device (maybe combined with an operating system) or a virtual environment (such as a virtual machine).
+
+### Software system
+A set of intercommunicating software-based components forming part of a platform.
 
 ### Runtime
 A version of a program that can be run but not changed (i.e. purely executable file).
