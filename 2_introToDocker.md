@@ -3,14 +3,14 @@
 Kubernetes is a container orchestration engine, but it does not build and deploy containers directly. Even at its most basic level, it deals with "pods", which exist in a layer of abstraction above containers (_in other words, in Kubernetes, the basic units of software are containers are wrapped into objects called pods_). Hence, there is a need for software to actually build and deploy the containers themselves, and this is the kind of software Docker provides. In practice, Kubernetes is the engine that automates and expands on the operations of Docker.
 
 ## Introduction
-**Docker** (_speaking of the platform as a whole_) is a set of open source platform-as-a-service products (_ex. Docker Desktop, Docker Scout, Docker Hub, etc._) that use OS-level virtualisation (also called containerisation) to deliver software in packages called containers. **Docker Engine** is the software platform (that runs on top of an OS ) that hosts the containers, allowing you to build, test, and deploy applications via containers. Containers have the necessary software environment for the applications to run, i.e. they have everything the applications need to run including libraries, system tools, code, and runtime.
+**Docker** (_speaking of the platform as a whole_) is a set of open source platform-as-a-service products (_ex. Docker Desktop, Docker Scout, Docker Hub, etc._) that use OS-level virtualization (also called containerization) to deliver software in packages called containers. **Docker Engine** is the software platform (that runs on top of an OS ) that hosts the containers, allowing you to build, test, and deploy applications via containers. Containers have the necessary software environment for the applications to run, i.e. they have everything the applications need to run including libraries, system tools, code, and runtime.
 
 ### Notes on above terms
-OS-level virtualisation (also called containerisation) is the creation by the kernel of one or more isolated instances (i.e. software-level recreations) of the user-space. It abstracts the physical resources of the system by provisioning them into one or more instances of the user-space.
+OS-level virtualization (also called containerization) is the creation by the kernel of one or more isolated instances (i.e. software-level recreations) of the user-space. It abstracts the physical resources of the system by provisioning them into one or more instances of the user-space.
 
 A user-space is the set of software elements (libraries, system tools, code,, and runtime etc.) used by an OS to interact with the kernel, so creating multiple instances of the OS also creates multiple instances of the user-space. Hence, note:
 
-_In OS-level virtualisation does not recreate the OS itself, only the user-space, i.e. the software layers that run above the OS._
+_In OS-level virtualization does not recreate the OS itself, only the user-space, i.e. the software layers that run above the OS._
 
 
 ## Need for containers
@@ -31,7 +31,7 @@ Problems:
 - Operational support (_i.e. more resources needed to handle day-to-day operational issues_)
 - Provisioning resources securely (ex. in role-based access control) to specific environments (ex. developer environment) is challenging
 
-### Virtualised app deployment infrastructure
+### Virtualized app deployment infrastructure
 
 - Level 1: Hardware infrastructure
 - Level 2: Hypervisor
@@ -45,10 +45,10 @@ Problems:
 - Compatibility & dependencies
 - Inconsistencies across environments
 
-### Dockerised app deployment infrastructure
-(_A type of containerised app deployment_)
+### Dockerized app deployment infrastructure
+(_A type of containerized app deployment_)
 
-This can be applied within physical app deployment infrastructure or virtualised app development infrastructure. In either case, the Docker runs on top of the OS level. There can by multiple Docker containers in a single server or virtual machine.
+This can be applied within physical app deployment infrastructure or virtualized app development infrastructure. In either case, the Docker runs on top of the OS level. There can by multiple Docker containers in a single server or virtual machine.
 
 - Level X: Operating System
 - Level X+1: Docker
@@ -90,7 +90,7 @@ Why containers?
 
 - Docker image
 	- A read-only template containing instructions to create container
-	- Images are often based on other images with customisations
+	- Images are often based on other images with customizations
 - Docker container
 	- Check the definition of "container" in software
 	- In short, it is an isolated environment (complete with libraries and dependencies) used to package codes or applications to be run
