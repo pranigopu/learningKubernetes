@@ -149,7 +149,7 @@ Login...
 
 `docker login -u <username> -p <password>`
 
-Logout
+Logout...
 
 `docker logout`
 
