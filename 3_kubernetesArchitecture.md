@@ -48,7 +48,7 @@ A container runtime is the software that runs containers on a host. More precise
 
 **NOTE 2**: Since a container runtime runs for given host, **_a container runtime must be installed for each node in a Kubernetes cluster_**.
 
-The Kubernetes engine runs on top of a container runtime. Common container runtimes with Kubernetes:
+The Kubernetes engine runs on top of a container runtime. Common container runtimes used by Kubernetes are:
 
 - containerd
 - Docker Engine
