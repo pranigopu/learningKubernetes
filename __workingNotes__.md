@@ -19,6 +19,7 @@ This means the `config` file here is currently set to refer to the cluster `aks-
 `kubectl get nodes`
 
 Results...
+
 ```
 NAME                                STATUS   ROLES   AGE    VERSION
 aks-agentpool-19544217-vmss000003   Ready    agent   136m   v1.25.6
