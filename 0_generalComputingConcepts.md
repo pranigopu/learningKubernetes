@@ -1,8 +1,8 @@
 # General computing concepts
 ## Computing environment
-The computing environment is the collection of hardware, software and network components that support the processing, storage and exchange of information demanded by the software solution.
+The computing environment is the collection of hardware, software and network components that support the processing, storage and exchange of information demanded by a software solution.
 
-> Reference: https://www.sciencedirect.com/topics/computer-science/computing-environmen
+> Reference: https://www.sciencedirect.com/topics/computer-science/computing-environment
 
 ## Platform
 A machine (physical or virtual) on which software can be installed or run. The term "machine" can refer to a computer or a hardware device (maybe combined with an operating system) or a virtual environment (such as a virtual machine).
