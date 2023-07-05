@@ -1,7 +1,7 @@
-
 # Learning Kubernetes
-## Official documentation
-- https://kubernetes.io/docs/home/
+## References
+> - Official documentation for Kubernetes:<br>https://kubernetes.io/docs/home/
+> - Udemy course link:<br>https://www.udemy.com/course/azure-kubernetes-service-with-azure-devops-and-terraform 
 
 ## Introduction
 **Definition 1**: Kubernetes is a (1) portable, (2) extensible and (3) open-source container orchestration system for _automating_ software deployment, scaling, and management.
@@ -68,11 +68,14 @@ In a production environment, you need to manage the containers that run the appl
 - Storage management within and between containerized applications
 - Self-healing
 	- This involves restarting containers that fail, replacing containers, killing containers that do not respond to your user-defined health check and not advertising killed containers to clients until they are ready to serve
-- Managing configuration of applications
+- Managing configuration of applications (including network applications running on multiple containers)
 - Managing sensitive information
-	- Storing and managing "secrets", i.e. sensitive information such as passwords, authorisation tokens, and SSH keys
+	- Storing and managing "secrets", i.e. sensitive information such as passwords, authorization tokens, and SSH keys
 
 As a container orchestration platform, Kubernetes offers the above services and more.
+
+## Declarative vs. imperative programming in Kubernetes
+The Kubernetes engine supports both declarative and imperative methods for programming instructions.
 
 ## The approach I am taking...
 Due to the complexity of installing, configuring and managing Kubernetes on a personal computer system, we shall be using Azure as the cloud computing platform to access Kubernetes services. To do this, we shall use AKS (Azure Kubernetes Service), which offers the quickest way to start developing and deploying cloud-native apps (i.e. apps that are stored and run on the cloud) in Azure with built-in code-to-cloud pipelines and guardrails. As a Kubernetes service hosted on the Azure platform, AKS handles critical tasks, like health monitoring and maintenance, and is highly available, secure and fully managed.
