@@ -59,7 +59,7 @@ Imperative programming is the method of describing a step-by-step (i.e. ordered)
 
 **NOTE**:<br>_Object-oriented langs ⊆  Structured langs ⊆ Procedural langs_<br>The wider category can support the paradigm of the narrower category.
 
-Declarative programming is the method of describing the end result of the process. In other worlds, declarative programming describes the end result of a program's execution without describing its control flow. _It is up to the programming language's implementation and the compiler to determine how to achieve the results_. **_Hence, emphasis is more on the result of execution, and not the execution process itself_**. Types of declarative programming paradigms:
+Declarative programming is the method of describing the end result of the process. In other words, declarative programming describes the end result of a program's execution without describing its control flow. _It is up to the programming language's implementation and the compiler to determine how to achieve the results_. **_Hence, emphasis is more on the result of execution, and not the execution process itself_**. Types of declarative programming paradigms:
 
 - Functional programming paradigm
 	- Ex. JavaScript, R, Wolfram Language
