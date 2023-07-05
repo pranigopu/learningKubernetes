@@ -1,27 +1,26 @@
-
 # Kubernetes architecture
 ## Basic terms
-_Note that all these terms are defined in the context of Kubernetes._
+_Note that all these terms are defined in the context of Kubernetes_.
 
 > Reference for the following (search as needed): https://kubernetes.io/docs/concepts/
 
 ### Pod
-A pod is a logical wrapper within  Kubernetes for one or more containers. In essence, a pod represents a set of running containers on your cluster. Note that just as a container is the basic software unit of Docker, so is pod the basic software unit of Kubernetes. Containers are encapsulated within pods. Some points on pods...
+A pod is a logical wrapper within  Kubernetes for one or more containers. **_In essence, a pod represents a set of running containers on your cluster_**. Note that just as a container is the basic software unit of Docker, so is pod the basic software unit of Kubernetes. Containers are encapsulated within pods. Some points on pods...
 
 - A pod is the smallest object creatable in Kubernetes
 - Pods usually have 1-1 relationship with containers
-	- Pods may have multiple containers (rare cases)
-	- There cannot be multiple identical containers in one pod
-- Scaling
-	- Scale up: creating identical pods
-	- Scale down: deleting identical pods
-	- No scaling within pods (i.e. no adding containers within pods), only scaling with pods (i.e. adding pods to the cluster)
+	- Pods _may_ have multiple containers (rare cases)
+	- There cannot be multiple identical containers (i.e. replicas of containers) in one pod
+- Scaling with pods
+	- To scale up: create replicas of a pod or pods
+	- To scale down: deleting replicas of a pod or pods
+	- Do not scale within pods (i.e. do not add replicas of containers within pods to scale up)
 
 ### Node, cluster & node pool
 A **node** is a machine (physical or virtual) that provides the platform for pods (and thus containers and containerized applications) to run on. A **cluster** is a collection of nodes managed by a control plane (discussed further). The collection of nodes itself is called a **node pool** and becomes a cluster when combined with a control plane.
 
 ### ReplicaSet
-A ReplicaSet (RS) is a Kubernetes object that acquires and maintains (by creating or deleting) a specified number of replicas of specific kind of pod within a node or cluster.
+A ReplicaSet (RS) is a Kubernetes object that acquires and maintains (by creating or deleting) a specified number of replicas of specific kind of pod within a node or cluster. It is used to guarantee the availability of a specified number of identical pods.
 
 ### Policy
 Kubernetes policies are  configurations (_i.e. settings or specifications_) that manage runtime behaviors or other configurations.
@@ -29,7 +28,7 @@ Kubernetes policies are  configurations (_i.e. settings or specifications_) that
 ### Service
 An abstraction that defines a logical set of pods and a policy by which to access them. A logical set of pods is a set that specifies a certain number of pods of a certain kind without specifying the particular pods to be used; the particular pods are interchangeable as long as they can satisfy their required role.
 
-A service is a method for exposing a network application (_i.e. an application running on a network of interconnected nodes_) that is running as one or more pods in your cluster. A service also provides a stable virtual ID by which to access the network application despite it being run on a set of disposable pods that may vary over time.
+A service is a method for exposing a network application (_i.e. an application running on a network of interconnected nodes_) that is running as one or more pods in your cluster. A service also provides a stable virtual ID by which to access the network application despite it being run on a set of disposable pods that may vary over time. Lastly, a service also acts as a load balancer for the set of pods associated to it at a given point in time.
 
 > Extra reference: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
 
