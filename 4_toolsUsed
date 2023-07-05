@@ -1,0 +1,8 @@
+# Tools used
+## Tools for Kubernetes
+### kubectl
+The Kubernetes command-line tool **kubectl** enables you to run commands for Kubernetes clusters. You can use kubectl to...
+
+- Deploy applications
+- Inspect and manage cluster resources
+- View activity logs
