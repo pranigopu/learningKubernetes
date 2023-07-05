@@ -25,4 +25,4 @@ NAME                                STATUS   ROLES   AGE    VERSION
 aks-agentpool-19544217-vmss000003   Ready    agent   136m   v1.25.6
 ```
 
-`kubectl get nods -o wide` gives additional information about the nodes.
+`kubectl get nods -o wide` gives additional information about the nodes, such as the container runtim used
