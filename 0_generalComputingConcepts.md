@@ -33,7 +33,7 @@ Unmounting is the inverse process. Here, the OS
 4. Relinquishes access to the device, making the storage device safe for removal
 
 ## Namespace
-A namespace is a declarative (i.e. explicitly defined) region in a code/ that provides a scope to the identifiers (the names of types, functions, variables, etc.) inside it. Namespaces are used to organize code into logical groups and to prevent name collisions that can occur especially when your code base includes multiple libraries
+A namespace is a declarative (i.e. explicitly defined) region in a code/environment that provides a scope to the identifiers (the names of types, functions, variables, etc.) inside it. Namespaces are used to organize code into logical groups and to prevent name collisions that can occur especially when your code base includes multiple libraries
 
 > Reference: https://learn.microsoft.com/en-us/cpp/cpp/namespaces-cpp?view=msvc-170
 
