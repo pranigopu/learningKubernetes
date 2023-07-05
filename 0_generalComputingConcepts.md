@@ -11,7 +11,7 @@ A machine (physical or virtual) on which software can be installed or run. The t
 A set of intercommunicating software-based components forming part of a platform.
 
 ## Runtime
-A version of a program that can be run but not changed (i.e. purely executable file).
+A version of a program that can be run but not changed (i.e. a purely executable file).
 
 ## Mounting
 Mounting is a process by which a computer's OS makes files and directories on a storage device (ex. hard drive, CD-ROM, network share, etc.) available to users via the computer's filesystem.
