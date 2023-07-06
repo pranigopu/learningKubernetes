@@ -14,7 +14,7 @@
 **SIDE NOTES**:
 
 1.  _The Kubernetes open-source project is hosted by the Cloud Native Computing Foundation._
-2. _"Kubernetes" is often abbreviated as "K8s" (*i.e. K + 8 letters + s)_
+2. _"Kubernetes" is often abbreviated as "K8s" (i.e. K + 8 letters + s)_
 3.  _The name Kubernetes originates from Greek, meaning "helmsman" or "pilot"._
 
 ## Containers
