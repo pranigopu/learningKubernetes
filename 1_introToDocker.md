@@ -1,5 +1,5 @@
 # Docker
-## Relevance of Docker in Kubernetes
+## Relevance of Docker for Kubernetes
 Kubernetes is a container orchestration engine, but it does not build and deploy containers directly. Even at its most basic level, it deals with "pods", which exist in a layer of abstraction above containers (_in other words, in Kubernetes, the basic units of software are containers are wrapped into objects called pods_). Hence, there is a need for software to actually build and deploy the containers themselves, and this is the kind of software Docker provides. Kubernetes is the engine that expands on the results of a container engine, with the most popular container engine being Docker.
 
 ## Introduction
