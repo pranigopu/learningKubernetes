@@ -1,6 +1,6 @@
 # Kubernetes architecture
 ## Basic terms
-_Note that all these terms are defined in the context of Kubernetes_.
+_Note that all these terms are defined in the context of Kubernetes._
 
 > Reference for the following (search as needed): https://kubernetes.io/docs/concepts/
 
@@ -23,12 +23,12 @@ A **node** is a machine (physical or virtual) that provides the platform for pod
 A ReplicaSet (RS) is a Kubernetes object that acquires and maintains (by creating or deleting) a specified number of replicas of specific kind of pod within a node or cluster. It is used to guarantee the availability of a specified number of identical pods.
 
 ### Policy
-Kubernetes policies are  configurations (_i.e. settings or specifications_) that manage runtime behaviors or other configurations.
+Kubernetes policies are configurations (_i.e. settings or specifications_) that manage runtime behaviors or other configurations.
 
 ### Service
 An abstraction that defines a logical set of pods and a policy by which to access them. A logical set of pods is a set that specifies a certain number of pods of a certain kind without specifying the particular pods to be used; the particular pods are interchangeable as long as they can satisfy their required role.
 
-A service is a method for exposing a network application (_i.e. an application running on a network of interconnected nodes_) that is running as one or more pods in your cluster. A service also provides a stable virtual ID by which to access the network application despite it being run on a set of disposable pods that may vary over time. Lastly, a service also acts as a load balancer for the set of pods associated to it at a given point in time.
+A service is a method for exposing a network application (_i.e. an application running on a network of interconnected nodes_) that is running as one or more pods in the cluster. A service also provides a stable virtual ID by which to access the network application despite it being run on a set of disposable pods that may vary over time. Lastly, a service also acts as a load balancer for the set of pods associated to it at a given point in time.
 
 > Extra reference: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
 
