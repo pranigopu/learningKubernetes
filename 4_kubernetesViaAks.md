@@ -14,7 +14,7 @@ The Kubernetes command-line tool **kubectl** enables you to run commands for Kub
 
 ## Accessing & managing resources in an AKS cluster
 
-### Configure AKS cluster credentials in local system...
+### Configure AKS cluster credentials in local system
 _Note that an AKS cluster is simply a cloud-native (specifically a Azure-native) Kubernetes cluster_.
 
 `az aks get-credentials --resource group <resource group name> --name <cluster name>`<br>OR<br>`az aks get-credentials -g <resource group name> -n <cluster name>`
@@ -33,7 +33,7 @@ This means the `config` file here is currently set to refer to the cluster `aks-
 
 ### Nodes & pods
 
-#### View nodes in the cluster...
+#### View nodes in the cluster
 
 `kubectl get node`<br>OR<br>`kubectl get node`
 
@@ -44,15 +44,15 @@ NAME                                STATUS   ROLES   AGE    VERSION
 aks-agentpool-19544217-vmss000003   Ready    agent   136m   v1.25.6
 ```
 
-`kubectl get nods -o wide` gives additional information about the nodes.
+`kubectl get node -o wide` gives additional information about the nodes.
 
-#### Create & view a pod...
+#### Create & view a pod
 
 `kubectl run <pod name chosen> --image <container image name>`
 
 In my case, I will use the image `stacksimplify/kubenginx:1.0.0` from Docker Hub. I will name my pod "pod1". Pod name can have hyphens as well.
 
-`kubectl run pod1 p --image stacksimplify/kubenginx:1.0.0`
+`kubectl run pod1 --image stacksimplify/kubenginx:1.0.0`
 
 **_Response message..._**
 
@@ -122,7 +122,7 @@ Response message...
 `pod "pod1" deleted`
 
 ### Services
-We can expose (i.e. make available and accessible) an application running on a pod or a set of pods by using various services. We can expose the application either internally (i.e. to nodes within the cluster) or externally. To expose applications internally, we use the _cluster IP service_ (provides communication between pods in within the cluster). To expose applications externally (i.e. allow access from outside the cluster), we need to create either a _node port_ (currently in preview), an _ingress service_ _load balancer service_ (a service created by AKS for the cluster by default). Since we are working with AKS, we shall discuss Kubernetes services with respect to an AKS environment.
+We can expose (i.e. make available and accessible) an application running on a pod or a set of pods by using various services. We can expose the application either internally (i.e. to nodes within the cluster) or externally. To expose applications internally, we use the _cluster IP service_ (provides communication between pods in within the cluster). To expose applications externally (i.e. allow access from outside the cluster), we need to create either a _node port_ (currently in preview), an _ingress service_ or a _load balancer service_ (a service created by AKS for the cluster by default). Since we are working with AKS, we shall discuss Kubernetes services with respect to an AKS environment.
 
 #### Load balancer service
 
@@ -138,3 +138,39 @@ When working with AKS specifically, creating a Kubernetes load balancer service 
 
 - Decoupling the Kubernetes service from the specific cloud infrastructure, enabling portability across cloud providers
 - A security layer between the cloud platform and the Kubernetes cluster
+
+**_Upon deployment..._**
+
+Upon deploying the Kubernetes load balancer service, the Azure SLB will do the following:
+
+- Creates a public IP address that is configured as the frontend IP address
+- Creates a new load balancer rule to associate frontend IP address with the backend pool (_i.e. the nodes in the cluster in our case_)
+
+Note that creating a cluster in AKS automatically creates a Kubernetes load balancer service, hence automatically initiating the above processes.
+
+##### Exposing a set of pods through a load balancer service
+In creating a service, what we are really doing is _exposing_ a specific set of pods while setting a specific policy with which to access them. This also applies to a load balancer service. To "create" a service...
+
+`kubectl expose pod <pod name 1> <pod name 2>... --type=<type of service> --port=<port number on which service is to run> --name=<service name>`
+
+In particular, we shall do...
+
+`kubectl expose pod pod1 --type=LoadBalancer --port=80 --name=service1`
+
+(_The set of pods being exposed here is just a single pod, "pod1"_)
+
+**_Response message..._**
+
+`service/service1 exposed`
+
+**_Viewing service details (using get command)..._**
+
+```
+NAME         TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)        AGE
+kubernetes   ClusterIP      10.0.0.1       <none>          443/TCP        5d23h
+service1     LoadBalancer   10.0.194.238   20.235.63.146   80:30253/TCP   84s
+```
+
+_Note that the ClusterIP service is a default service created for internal load balancing. Hence, unlike our LoadBalancer service, it does not have an external IP address_.
+
+We can access "service1" from outside the cluster using the external IP address. What we are accessing through this service is in fact the application(s) running on the pod(s) exposed by this service. In this case, we are accessing the application in "pod1" as exposed by "service1".
