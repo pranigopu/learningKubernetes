@@ -80,7 +80,7 @@ The backend pool is the set of nodes within the virtual network that service the
 In the context of a Kubernetes load balancer service in AKS (which automatically creates an Azure load balancer (_i.e. which is a suitable cloud load balancer_) to which the Kubernetes load balancer service is mapped), the backend pool consists of the nodes in our Kubernetes cluster.
 
 #### c. Load balancer rules
-A load-balancing rule maps a given frontend IP address and port to multiple backend IP addresses and ports. A load balancer rule is used to define how incoming traffic is distributed to all the instances (i.e. nodes that serve identical roles) within the backend pool. Hence, load balancer rules are for inbound traffic only.\
+A load-balancing rule maps a given frontend IP address and port to multiple backend IP addresses and ports. A load balancer rule is used to define how incoming traffic is distributed to all the instances (i.e. nodes that serve identical roles) within the backend pool. Hence, load balancer rules are for inbound traffic only.
 
 **SIDE NOTE**: _Associating an IP address to a component is called the IP configuration of the component; it means setting the IP address of the component_.
 
