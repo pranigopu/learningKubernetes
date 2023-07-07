@@ -1,3 +1,4 @@
+
 # Kubernetes architecture
 ## Basic terms
 _Note that all these terms are defined in the context of Kubernetes._
@@ -5,7 +6,7 @@ _Note that all these terms are defined in the context of Kubernetes._
 > Reference for the following (search as needed): https://kubernetes.io/docs/concepts/
 
 ### Pod
-A pod is a logical wrapper within  Kubernetes for one or more containers. **_In essence, a pod represents a set of running containers on your cluster_**. Note that just as a container is the basic software unit of Docker, so is pod the basic software unit of Kubernetes. Containers are encapsulated within pods. Some points on pods...
+A pod is a logical wrapper within  Kubernetes for one or more containers. **_In essence, a pod represents a set of running containers on your cluster_**. Note that just as a container is the basic software unit of Docker, so is pod the basic software unit (_i.e. the fundamental building block_) of Kubernetes. Containers are encapsulated within pods. Some points on pods...
 
 - A pod is the smallest object creatable in Kubernetes
 - Pods usually have 1-1 relationship with containers
@@ -15,6 +16,14 @@ A pod is a logical wrapper within  Kubernetes for one or more containers. **_In 
 	- To scale up: create replicas of a pod or pods
 	- To scale down: deleting replicas of a pod or pods
 	- Do not scale within pods (i.e. do not add replicas of containers within pods to scale up)
+
+**NOTE 1**: Since pods are intended to be disposable and replaceable, you cannot add a container to a pod once it has been created. Instead, you usually delete and replace pods using deployments.
+
+**NOTE 2**: Pods in Kubernetes are ephemeral in nature and do not persist data, so the data in a pod is lost once it is destroyed or restarted (which also happens when you restart the cluster in AKS). To support persistent data storage, Kubernetes provides a PersistentVolume (PV) and a PersistentVolumeClaim (PVC) object.
+
+> References for notes 1 and 2:
+> - https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers
+> - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7865615
 
 ### Node, cluster & node pool
 A **node** is a machine (physical or virtual) that provides the platform for pods (and thus containers and containerized applications) to run on. A **cluster** is a collection of nodes managed by a control plane (discussed further). The collection of nodes itself is called a **node pool** and becomes a cluster when combined with a control plane.
@@ -26,11 +35,19 @@ A ReplicaSet (RS) is a Kubernetes object that acquires and maintains (by creatin
 Kubernetes policies are configurations (_i.e. settings or specifications_) that manage runtime behaviors or other configurations.
 
 ### Service
-An abstraction that defines a logical set of pods and a policy by which to access them. A logical set of pods is a set that specifies a certain number of pods of a certain kind without specifying the particular pods to be used; the particular pods are interchangeable as long as they can satisfy their required role.
+An abstraction that defines a logical set of pods and a policy by which to access them. The particular pods in the set are disposable and replaceable (_as long as their replacements can satisfy the required role_).
 
 A service is a method for exposing a network application (_i.e. an application running on a network of interconnected nodes_) that is running as one or more pods in the cluster. A service also provides a stable virtual ID by which to access the network application despite it being run on a set of disposable pods that may vary over time. Lastly, a service also acts as a load balancer for the set of pods associated to it at a given point in time.
 
 > Extra reference: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+
+#### Service types
+To expose pods internally (i.e. within the cluster), we use the _ClusterIP_ service. To expose pods externally (i.e. both within and outside the cluster), we can use _LoadBalancer_, _NodePort_ or _Ingress_ services.
+
+#### Azure Kubernetes Service (AKS)
+When creating a Kubernetes cluster in an Azure resource group, Azure creates an Azure Kubernetes Service (AKS) that exposes the pods of the whole cluster to our Azure subscription. In essence, an AKS cluster is in fact a service that exposes the whole cloud-native Kubernetes cluster (the Kubernetes cluster that resides in Azure's virtual machines) to our Azure subscription so that we (the Azure subscriber) can access and manage the cloud-native Kubernetes cluster.
+
+To us, the users, AKS is presented as a ClusterIP service that exposes the cluster internally, but in fact, AKS is exposing the actual Kubernetes cluster externally, i.e. to the cloud provider subscription.
 
 ### Workload
 An application running on Kubernetes. Regardless of whether a workload has a single component or several, it is run within a set of pods.
