@@ -1,5 +1,8 @@
 
 # General computing concepts
+## Logical vs. physical group
+A logical set or group of entities is a group built by grouping references to the entities rather than the entities themselves. _Generally, a logical group is defined based on some relationship between the entities that unites them conceptually_. On the other hand, a physical set or group of entities is a group that groups the actual entities in a particular location.
+
 ## Computing environment
 The computing environment of a software solution is the collection of hardware, software and network components that support the processing, storage and exchange of information demanded by the software solution.
 
