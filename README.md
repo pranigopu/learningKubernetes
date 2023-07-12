@@ -76,7 +76,16 @@ In a production environment, you need to manage the containers that run the appl
 As a container orchestration platform, Kubernetes offers the above services and more.
 
 ## Declarative vs. imperative programming in Kubernetes
-The Kubernetes engine supports both declarative and imperative methods for programming instructions. (_To be continued..._)
+The Kubernetes engine supports both declarative and imperative methods for programming instructions.
+
+Imperative methods...
+
+- Command line interface (CLI)
+
+Declarative methods...
+
+- YAML (Yet Another Markup Language) manifests
+- Terraform scripting language
 
 ## The approach I am taking...
 Due to the complexity of installing, configuring and managing Kubernetes on a personal computer system, we shall be using Azure as the cloud computing platform to access Kubernetes services. To do this, we shall use AKS (Azure Kubernetes Service), which offers the quickest way to start developing and deploying cloud-native apps (i.e. apps that are stored and run on the cloud) in Azure with built-in code-to-cloud pipelines and guardrails. As a Kubernetes service hosted on the Azure platform, AKS handles critical tasks, like health monitoring and maintenance, and is highly available, secure and fully managed.
