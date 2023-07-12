@@ -1,4 +1,3 @@
-
 # Kubernetes architecture
 ## Basic terms
 _Note that all these terms are defined in the context of Kubernetes._
@@ -29,7 +28,15 @@ A pod is a logical wrapper within  Kubernetes for one or more containers. **_In 
 A **node** is a machine (physical or virtual) that provides the platform for pods (and thus containers and containerized applications) to run on. A **cluster** is a collection of nodes managed by a control plane (discussed further). The collection of nodes itself is called a **node pool** and becomes a cluster when combined with a control plane.
 
 ### ReplicaSet
-A ReplicaSet (RS) is a Kubernetes object that acquires and maintains (by creating or deleting) a specified number of replicas of specific kind of pod within a node or cluster. It is used to guarantee the availability of a specified number of identical pods.
+A ReplicaSet (RS) is a Kubernetes object that acquires and maintains (by creating or deleting) a specified number of replicas of specific container(s) within a node or cluster. It is used to guarantee the availability of a specified number of identical containers (hence, identical instances of the application(s) running on the containers).
+
+The purpose of a ReplicaSet is to maintain a stable set of running replicas of a container (i.e. running instances of an application) at any given time. _Note that each replica of a container is also a container itself, and like all containers in Kubernetes, each replica is wrapped in a replicated pod_. In practice, we provide a container image for the ReplicaSet to replicate; the container is created and replicated by the ReplicaSet according to the way we define the ReplicaSet.
+
+ReplicaSets do the following:
+
+- Ensure high availability and reliability of applications (_by creating and maintaining replicas of certain container(s), which serve as backups in case of failure_)
+- Enable seamless scaling (_by creating or deleting replicas as needed_)
+- Load balancing (_by distributing requests appropriately to the replicas_ **_using services that are a part of the ReplicaSet_**)
 
 ### Policy
 Kubernetes policies are configurations (_i.e. settings or specifications_) that manage runtime behaviors or other configurations.
@@ -97,9 +104,13 @@ Control plane components (which run on master nodes) manage and control the clus
 Control plane components can be run on any machine or set of machines in the cluster. However, for simplicity, control plane components are started on the same machine, and this machine does not run user containers.
 
 #### 1.1. kube-apiserver
-A Kubernetes API server exposes the Kubernetes API to other control plane components, i.e. it is the Kubernetes API's frontend for the control plane.
+A Kubernetes API server exposes the Kubernetes API to other control plane components, i.e. it is the Kubernetes API's frontend for the control plane. To elaborate, a Kubernetes API server is the core of a Kubernetes cluster's control plane, since this server exposes an HTTP API that lets (1) end users, (2) different parts of your cluster, and (3) external components communicate with one another.
+
+**NOTE**: _The Kubernetes API is an HTTP API that lets you query and manipulate the state of objects in Kubernetes clusters (ex. pods, namespaces, configuration maps (ConfigMaps), services and events)_.
 
 The main implementation of a Kubernetes API server is kube-apiserver. kube-apiserver scales horizontally, i.e. it deploys more instances of itself to scale up. Several instances of kube-apiserver can be run such that traffic to and from the control plane is balanced among these instances.
+
+> Extra reference: https://kubernetes.io/docs/concepts/overview/kubernetes-api/
 
 #### 1.2. etcd
 etcd is a consistent and highly available key-value store (i.e. a storage that stores associated key and value pairs, i.e. one key associated with one value). It is used as a backing store (i.e. secondary or persistent storage) by a Kubernetes cluster to store the cluster's data.
