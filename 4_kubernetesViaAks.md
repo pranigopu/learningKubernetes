@@ -104,7 +104,7 @@ Kubernetes captures logs from each container in a running pod. Using the command
 
 `kubectl logs -f <pod name>`
 
-**SIDE NOTE** (example of an API request that would be logged)<br>_To externally access an application running on a pod (using an external IP address), we need to expose the pod using a load balancer service (discussed later). Once we do so, we can view the details of this service to obtain the external IP address of the service through which to access the application. Using this IP address, we can send an HTTP "GET" request to access the application, for example on a web browser. Such a request would be logged for the pod's container (in which the application is running)_.
+**SIDE NOTE** (example of an API request that would be logged):<br>_To externally access an application running on a pod (using an external IP address), we need to expose the pod using a load balancer service (discussed later). Once we do so, we can view the details of this service to obtain the external IP address of the service through which to access the application. Using this IP address, we can send an HTTP "GET" request to access the application, for example on a web browser. Such a request would be logged for the pod's container (in which the application is running)_.
 
 #### Connect to a container running on the pod
 
