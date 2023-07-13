@@ -219,10 +219,17 @@ We can access "service1" from outside the cluster using the external IP address.
 
 **NOTE 2**: Unlike pods, services are persistent, i.e. their data is preserved even if the cluster is restarted. Hence, though the pods they expose are destroyed upon restarting the cluster, the services retain the names of the pods they were meant to expose.
 
-### ReplicaSets
-(**_Repeat of a section in the discussion on Kubernetes architecture's basic concepts_**)
+#### More on the expose command
+A service can expose any resource within the cluster, not just pods but also ReplicaSets, deployments, etc. The general structure of the command is...
 
-A ReplicaSet (RS) is a Kubernetes object that acquires and maintains (by creating or deleting) a specified number of replicas of specific container(s) within a node or cluster. It is used to guarantee the availability of a specified number of identical containers (hence, identical instances of the application(s) running on the containers).
+`kubectl expose <resource type> <instance name or names> --type=<type of service> --port=<port number for exposure> --name=<service name chosen>`
+
+**NOTE**: When exposing objects that abstract the pods involved (such as ReplicaSets), the service used is configured to expose an application (with the specific pods being abstracted as endpoints).
+
+### ReplicaSets
+(**_Includes a recap from the discussion on Kubernetes architecture's basic concepts_**)
+
+A ReplicaSet (RS) is a resource object that acquires and maintains (by creating or deleting) a specified number of replicas of specific container(s) within a node or cluster. It is used to guarantee the availability of a specified number of identical containers (hence, identical instances of the application(s) running on the containers).
 
 The purpose of a ReplicaSet is to maintain a stable set of running replicas of a container (i.e. running instances of an application) at any given time. _Note that each replica of a container is also a container itself, and like all containers in Kubernetes, each replica is wrapped in a replicated pod_. In practice, we provide a container image for the ReplicaSet to replicate; the container is created and replicated by the ReplicaSet according to the way we define the ReplicaSet.
 
@@ -265,6 +272,8 @@ spec:
         image: stacksimplify/kube-helloworld:1.0.0
 ```
 
+_As in every previous example, I shall be using the container image_ `stacksimplify/kubenginx:1.0.0`, _which present in Docker Hub_.
+
 With the above script, we initiate the creation of replica containers from the given image (in the last line), which of course means (as we are in a Kubernetes context) the creation of replica pods. From the above, note that we connect the ReplicaSet to the containers it must replicate not by reference to specific pods but by reference to the applications themselves, or more specifically, the applications running in specific containers. In other words, the way a ReplicaSet is connected with pods is abstracted from us the end users.
 
 To create a ReplicaSet using the above YAML manifest, we do the following...
@@ -278,4 +287,120 @@ The "file path" is the path of the YAML file we have stored in our local system 
 **_Like with any other Kubernetes object, we can deal with the created ReplicaSet using the kubectl "get", describe" and "delete" commands._**
 
 #### The pods created by the ReplicaSet
-The replica pods created by the ReplicaSet "belong" to the ReplicaSet. This fact is apparent in their auto-generated names, which have the form:<br>`<replica set name>-<identifier>`
+The replica pods created by the ReplicaSet "belong" to the ReplicaSet. This fact is apparent in their auto-generated names, which have the form:<br>`<replica set name>-<identifier>`. These pods can be accessed just like any other pods in the cluster.
+
+##### Pods replicated automatically to maintain high availability & reliability
+If certain pods of the ReplicaSet are destroyed or deleted, it will automatically create the right amount of replica containers (hence replica pods) to fulfill the required number of replicas.
+
+#### Scaling a ReplicaSet
+We use the "scale" command as in the following...
+
+`kubectl scale --replicas=<enter number> replicaset <ReplicaSet name>`
+
+This changes required number of replicas to be maintained by the ReplicaSet.
+
+#### Updating (or replacing) a ReplicaSet
+##### Imperative method
+To update the image of the ReplicaSet's container (_i.e. the source container which is to be replicated_), i.e. keep the container name while changing its image, we use the `set image` command as in the following...
+
+`kubectl set image replicaset <ReplicaSet name> <container name>=<new container image>`
+
+##### Declarative method
+You can change the properties of a ReplicaSet by recreating, replacing and redeploying it by editing the YAML file or choosing a new YAML file and applying the following command...
+
+`kubectl replace -f <file path>`
+
+**NOTE**: "replace" only works if there exists a ReplicaSet in the cluster that has the same name as the one given in the updated or new YAML manifest. The YAML file itself may be completely changed (apart from the chosen ReplicaSet name), renamed or relocated, but as long as the right name is given, the replacement will be done.
+
+For an example of an update, we can scale up or scale down the ReplicaSet by increasing or decreasing the replica requirement (i.e. the `replicas` field in the YAML manifest before applying the above mentioned command.
+
+###### TIP: Opening the ReplicaSet's YAML file via CLI to edit
+To edit the ReplicaSet's YAML file (in order to update it), we enter the following...
+
+`kubectl edit replicaset <ReplicaSet name>`
+
+Upon entering this command, we will get the ReplicaSet's YAML file opened in our computer's preferred text editing software (such as Notepad, VI, etc.). The command's execution terminates upon closing the file. **_Doing this directly updates (i.e. replaces) your ReplicaSet, removing the need for the "replace" command_**.
+
+#### Exposing a ReplicaSet using a service
+While a ReplicaSet can act as a load balancer for its pods for requests within the cluster, it cannot be used to expose its pods externally. To do the latter, we need to use the right services  (such as a LoadBalancer service). In other words, you need to expose a ReplicaSet through a service in order to access the ReplicaSet (or rather the applications running on its pods) from outside the cluster (ex. through your web browser, using the service's external frontend IP address). The "expose" command required to do this task has been previously discussed in the section on services.
+
+##### Advantage of exposing ReplicaSets instead of particular pods
+Pods are not persistent, i.e. the are destroyed upon restarting the cluster. However, when exposing a ReplicaSet, the service's definition makes no references to specific pods but the application itself (the application being the one from the container image through which containers (hence pods) were created and replicated). A ReplicaSet is persistent, hence the references in the service remain intact despite cluster restarts.
+
+#### Final notes on ReplicaSets
+Like services, ReplicaSets are persistent, i.e. the are maintained even if the cluster has been restarted. Its previous pods would be destroyed, but it would automatically create new pods upon restart.
+
+### Deployments
+(**_Includes recap of the discussion on Kubernetes architecture's basic concepts_**)
+
+A deployment is a resource object that provides declarative updates to applications (i.e. to containerized applications running on pods or ReplicaSets). To elaborate, we can describe a desired state (i.e. a desired combination of properties for the application(s) being deployed) and the **deployment controller** changes the actual state of the targeted application(s) and associated environment to the desired state _at a controlled rate_.
+
+**NOTE 1**: Any changes being applied to the deployment will be immediately applies to the application. Such a change generally involves the creation of new pods or ReplicaSets and the termination of old pods or ReplicaSets, in order to align with the deployment's new specifications.
+
+**NOTE 2**: As a deployment is updated, it maintains a number of its older versions (usually 10 older versions) to which we can roll back when we want.
+
+We can do the following with deployments:
+
+- Roll out a ReplicaSet through a deployment (_happens by default when creating a deployment_)
+- Update a deployment (_i.e. update applications and their environment_)
+- Roll back to older versions of a deployment
+- Roll forward to newer versions of a deployment
+- Scale a deployment (_similar to scaling a ReplicaSet_)
+- Pausing and resuming a deployment (_to make changes without simultaneously creating and destroying pods_)
+- Observe the deployment status of the application(s) being deployed
+- Canary deployments (_i.e. distributing traffic to new and old versions of the deployment, in order to test the newer version_)
+
+#### Creating a deployment
+Unlike with ReplicaSets, deployments can be created through imperative methods (i.e. commands). We use the following...
+
+`kubectl create deployment <deployment name chosen> --image=<container image>`
+
+As with ReplicaSets, we provide a container image for which to create a deployment. The command initiates the creation of the container and thereby the containerized application (_which we want to deploy_), and associates it to the deployment object being created. _As in every previous example, I shall be using the container image_ `stacksimplify/kubenginx:1.0.0`, _which present in Docker Hub_.
+
+#### Scaling a deployment
+Similar to what we used for ReplicaSets, we use the following...
+
+`kubectl scale --replicas=<enter number> deployment <deployment name>`
+
+This changes required number of replicas (_of the containerized application, thus the containers, thus the pods_) to be maintained by the ReplicaSet. Note that updating the deployment simply updates (i.e. replaces) the ReplicaSet associated to it, maintaining the same name for the ReplicaSet.
+
+**NOTE**: In practice, we usually use autoscaling methods to scale the deployment. We shall discuss this later.
+
+#### Updating a deployment
+##### Imperative method
+Similar to what we did for ReplicaSets, to update the image of the deployment's ReplicaSet's container (_i.e. the source container which is to be replicated_), i.e. keep the container name while changing its image, we use the "set image" command as in the following...
+
+`kubectl set image deployment <deployment name> <container name>=<new container image>`
+
+##### Declarative method
+To do this, we shall be opening the deployment's YAML file via CLI to edit it, similarly to how we did it for ReplicaSets. To do so (in order to update it), we enter the following...
+
+`kubectl edit deployment <deployment name>`
+
+Upon entering this command, we will get the deployment's YAML file opened in our computer's preferred text editing software (such as Notepad, VI, etc.). The command's execution terminates upon closing the file.
+
+##### Viewing the rollout history
+Every update to the deployment (including edits) is counted as a rollout, and the creation of the deployment is also counted as a rollout. We can see the rollout history (i.e. update history) of our deployment using...
+
+`kubectl rollout history deployment <deployment name>`
+
+##### Verifying the rollout status of the deployment
+To see state of the most recent update (i.e. rollout) of the deployment, we use...
+
+`kubectl rollout status deployment <deployment name>`
+
+#### Exposing a deployment using a service
+Just like ReplicaSets, deployments can be used to expose application(s) and the associated pods internally (i.e. within the cluster). But to expose them externally (i.e. to make it accessible outside the cluster), we need to use the right services  (such as a LoadBalancer service). The "expose" command required to do this task has been previously discussed in the section on services.
+
+##### Advantage of exposing deployments instead of particular pods
+Exposing deployments has the same essential advantage as exposing ReplicaSets (_discussed in the previous section_).
+
+## Some extra notes
+### Separating resource type names and instance names in kubectl
+When mentioning resource types and their instances (in any command; get, describe, scale, set...), we can either use a space or a slash to separate the resource type name and the instance name(s). For example...
+
+`kubectl get pod/pod1`
+
+... is the same as ...
+
+`kubectl get pod pod1`
