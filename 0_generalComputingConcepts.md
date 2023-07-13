@@ -1,4 +1,3 @@
-
 # General computing concepts
 ## Logical vs. physical group
 A logical set or group of entities is a group built by grouping references to the entities rather than the entities themselves. _Generally, a logical group is defined based on some relationship between the entities that unites them conceptually_. On the other hand, a physical set or group of entities is a group that groups the actual entities in a particular location.
@@ -74,3 +73,20 @@ Declarative programming is the method of describing the end result of the proces
 
 - _Object-oriented languages support object-oriented, structured and procedural programming paradigms_
 - _JavaScript supports both structured and functional programming paradigms_
+
+## Task context
+A task context is the minimal set of data used by a task (which may be a process, thread, or fiber) that must be saved to allow a task to be interrupted and later continued from the same point.
+
+## Application programming interface (API)
+### Endpoint
+An API endpoint is a digital location where an API receives requests for a specific resource on its server. In practice, an endpoint is typically a uniform resource locator (URL) that provides the location of a resource on the server. In other words, an endpoint is the point of connection between the API and a specific resource.
+
+**NOTE**: Software programs typically have multiple API endpoints. For example, Instagram's endpoints include
+
+- An endpoint that allows businesses and creators to measure media and profile interactions
+- An endpoint that allows them to moderate comments and their replies
+- An endpoint that allows them to discover hash-tagged media
+
+> References:
+> - https://blog.hubspot.com/website/api-endpoint
+> - https://www.techtarget.com/searchapparchitecture/definition/API-endpoint
