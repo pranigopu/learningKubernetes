@@ -1,3 +1,4 @@
+
 # Kubernetes architecture
 ## Basic terms
 _Note that all these terms are defined in the context of Kubernetes._
@@ -5,7 +6,7 @@ _Note that all these terms are defined in the context of Kubernetes._
 > Reference for the following (search as needed): https://kubernetes.io/docs/concepts/
 
 ### Pod
-A pod is a logical wrapper within  Kubernetes for one or more containers. **_In essence, a pod represents a set of running containers on your cluster_**. Note that just as a container is the basic software unit of Docker, so is pod the basic software unit (_i.e. the fundamental building block_) of Kubernetes. Containers are encapsulated within pods. Some points on pods...
+A pod is a logical wrapper within Kubernetes for one or more containers. **_In essence, a pod represents a set of running containers on your cluster_**. Note that just as a container is the basic software unit of Docker, so is pod the basic software unit (_i.e. the fundamental building block_) of Kubernetes. Containers are encapsulated within pods. Some points on pods...
 
 - A pod is the smallest object creatable in Kubernetes
 - Pods usually have 1-1 relationship with containers
@@ -28,7 +29,7 @@ A pod is a logical wrapper within  Kubernetes for one or more containers. **_In 
 A **node** is a machine (physical or virtual) that provides the platform for pods (and thus containers and containerized applications) to run on. A **cluster** is a collection of nodes managed by a control plane (discussed further). The collection of nodes itself is called a **node pool** and becomes a cluster when combined with a control plane.
 
 ### ReplicaSet
-A ReplicaSet (RS) is a Kubernetes object that acquires and maintains (by creating or deleting) a specified number of replicas of specific container(s) within a node or cluster. It is used to guarantee the availability of a specified number of identical containers (hence, identical instances of the application(s) running on the containers).
+A ReplicaSet (RS) is a resource object that acquires and maintains (by creating or deleting) a specified number of replicas of specific container(s) within a node or cluster. It is used to guarantee the availability of a specified number of identical containers (hence, identical instances of the application(s) running on the containers).
 
 The purpose of a ReplicaSet is to maintain a stable set of running replicas of a container (i.e. running instances of an application) at any given time. _Note that each replica of a container is also a container itself, and like all containers in Kubernetes, each replica is wrapped in a replicated pod_. In practice, we provide a container image for the ReplicaSet to replicate; the container is created and replicated by the ReplicaSet according to the way we define the ReplicaSet.
 
@@ -37,6 +38,29 @@ ReplicaSets do the following:
 - Ensure high availability and reliability of applications (_by creating and maintaining replicas of certain container(s), which serve as backups in case of failure_)
 - Enable seamless scaling (_by creating or deleting replicas as needed_)
 - Load balancing (_by distributing requests appropriately to the replicas_ **_using services that are a part of the ReplicaSet_**)
+
+### Controller
+A controller is a software component that runs control processes. A controller process is a looping process that watches the state of the cluster (through the Kubernetes API server _which discussed later in this document_) and makes changes to try to push the cluster to the desired state (the current and desired state are evaluated based on some metric or set of metrics, such as node availability, job-completion, etc.).
+
+### Deployment
+A deployment is a resource object that provides declarative updates to applications (i.e. to containerized applications running on pods or ReplicaSets). To elaborate, we can describe a desired state (i.e. a desired combination of properties for the application(s) being deployed) and the **deployment controller** changes the actual state of the targeted application(s) and associated environment to the desired state _at a controlled rate_.
+
+**NOTE 1**: Any changes being applied to the deployment will be immediately applies to the application. Such a change generally involves the creation of new pods or ReplicaSets and the termination of old pods or ReplicaSets, in order to align with the deployment's new specifications.
+
+**NOTE 2**: As a deployment is updated, it maintains a number of its older versions (usually 10 older versions) to which we can roll back when we want.
+
+We can do the following with deployments:
+
+- Roll out a ReplicaSet through a deployment (_happens by default when creating a deployment_)
+- Update a deployment (_i.e. update applications and their environment_)
+- Roll back to older versions of a deployment
+- Roll forward to newer versions of a deployment
+- Scale a deployment (_similar to scaling a ReplicaSet_)
+- Pausing and resuming a deployment (_to make changes without simultaneously creating and destroying pods_)
+- Observe the deployment status of the application(s) being deployed
+- Canary deployments (_i.e. distributing traffic to new and old versions of the deployment, in order to test the newer version_)
+
+> Extra reference: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
 
 ### Policy
 Kubernetes policies are configurations (_i.e. settings or specifications_) that manage runtime behaviors or other configurations.
@@ -138,7 +162,7 @@ Scheduling decisions may be done based on various factors, such as:
 - **Minimizing interference between workloads** (_i.e. applications running on the pods_)
 
 #### kube-controller-manager
-The component that runs controller processes. A controller process is a looping process that watches the state of the cluster (through the API server) and makes changes to try to push the cluster to the desired state (the current and desired state are evaluated based on some metric or set of metrics, such as node availability, job-completion, etc.).
+The component that runs the essential controller processes in the Kubernetes cluster. _To recap from a previous section_, a controller process is a looping process that watches the state of the cluster (through the API server) and makes changes to try to push the cluster to the desired state (the current and desired state are evaluated based on some metric or set of metrics, such as node availability, job-completion, etc.).
 
 Logically (_i.e. by conceptual design_), each controller process is a separate process. However, for the sake of reduced space and time complexity, controller processes are compiled into a single binary (_i.e. a single executable program_) and run as a single process (_i.e. several independent controller processes are combined into one_).
 
