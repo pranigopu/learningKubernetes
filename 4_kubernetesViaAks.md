@@ -367,10 +367,14 @@ This changes required number of replicas (_of the containerized application, thu
 **NOTE**: In practice, we usually use autoscaling methods to scale the deployment. We shall discuss this later.
 
 #### Updating a deployment
+**NOTE**: **_Scaling a deployment does not count as an update_**. An update involves a change in the container image of the container being replicated by the deployment, not a change in the number of the container's replicas.
+
 ##### Imperative method
 Similar to what we did for ReplicaSets, to update the image of the deployment's ReplicaSet's container (_i.e. the source container which is to be replicated_), i.e. keep the container name while changing its image, we use the "set image" command as in the following...
 
 `kubectl set image deployment <deployment name> <container name>=<new container image>`
+
+**NOTE**: Doing this requires new containers, which means the termination of the existing pods of the deployment and the creation of new ones.
 
 ##### Declarative method
 To do this, we shall be opening the deployment's YAML file via CLI to edit it, similarly to how we did it for ReplicaSets. To do so (in order to update it), we enter the following...
@@ -379,15 +383,57 @@ To do this, we shall be opening the deployment's YAML file via CLI to edit it, s
 
 Upon entering this command, we will get the deployment's YAML file opened in our computer's preferred text editing software (such as Notepad, VI, etc.). The command's execution terminates upon closing the file.
 
-##### Viewing the rollout history
+##### Rollouts & rollbacks
+**NOTE 1**: A rollback is a kind of update, and is treated as such.
+
+**NOTE 2**: As we will soon see, there is no "roll forward" (i.e. updating to a later version from a previous version), there are only rollbacks.
+
+###### Viewing the rollout history
 Every update to the deployment (including edits) is counted as a rollout, and the creation of the deployment is also counted as a rollout. We can see the rollout history (i.e. update history) of our deployment using...
 
 `kubectl rollout history deployment <deployment name>`
 
-##### Verifying the rollout status of the deployment
+To see more details (such as container image used and port number) of a particular revision (i.e. rollout version), do the following...
+
+`kubectl rollout history deployment <deployment name> --revision=<revision number>`
+
+###### Verifying the rollout status of the deployment
 To see state of the most recent update (i.e. rollout) of the deployment, we use...
 
 `kubectl rollout status deployment <deployment name>`
+
+###### Rolling back the deployment to previous versions (i.e. revisions)
+**NOTE**: _Here, I am using "revision" and "version" synonymously_.
+
+To go back to the previous rollout version (or revision)...
+
+`kubectl rollout undo deployment <deployment name>`
+
+This updates (_or unupdates if you will_) the deployment to the specifications of the previous version. In doing so, the previous version in fact becomes the next version, and its revision number is altered accordingly. For instance, if your current revision is 3 and you roll back to revision 2, revision 2 becomes revision 4 and there is no longer a "revision 2".
+
+To roll back or forward to a particular rollout version, we use the above mentioned "undo" command but add the "to-revision" argument as follows...
+
+`kubectl rollout undo deployment <deployment name> --to-revision=<revision number>`
+
+This updates the deployment to the specifications of the given version. In doing so, the given version in fact becomes the next version, and its revision number is altered accordingly. For instance, if your current revision is 3 and you roll back to revision 1, revision 1 becomes revision 4 and there is no longer a "revision 1".
+
+**NOTE**: Due to the way the the revision number changes upon a rollback, we can never "roll forward", because with every rollback from revision _n_ to revision _n-k_, you are creating a new revision that is now revision _n+1_. Hence, going back to revision _n_ would in fact be another rollback.
+
+#### Restarting a deployment (using rolling restart)
+Restarting a deployment terminates the current pods of the deployment and recreates it by creating new pods. This is analogous to restarting an application by terminating its running instance (which involves processes. temporary storage. etc.) and recreating it using a new instance. To maintain a deployment's availability, we use a rolling restart, i.e. terminating and creating pods one at a time (while the other pods are running) until everything is renewed. This keeps our deployment running while we refresh it (typically to commit an update). To perform a rolling restart, we use...
+
+`kubectl rollout restart deployment <deployment name>`
+
+#### Pausing & resuming a deployment
+Pausing a deployment means temporarily detaching it from the containers (and thus the pods) associated to it. By "detach", I mean that updates to the deployment are not reflected on its pods. Even when the deployment is paused, its pods continue running, but any updates to the deployment are not reflected by the existing pods (scaling is not counted as an update, and scaling the deployment still causes creation of new pods or deletion of old pods). To pause a deployment, we use...
+
+`kubectl rollout pause deployment <deployment name>`
+
+**SIDE NOTE**: _Because the pods keep running, the unupdated application can still be accessed (if exposed by a service)_.
+
+Note that changes to the deployment do reflect in its rollout history even when it is paused, but they be applied to the pods when the deployment resumes. To resume a deployment (i.e. reattach it to its pods), we use...
+
+`kubectl rollout resume deployment <deployment name>`
 
 #### Exposing a deployment using a service
 Just like ReplicaSets, deployments can be used to expose application(s) and the associated pods internally (i.e. within the cluster). But to expose them externally (i.e. to make it accessible outside the cluster), we need to use the right services  (such as a LoadBalancer service). The "expose" command required to do this task has been previously discussed in the section on services.
