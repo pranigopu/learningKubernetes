@@ -53,8 +53,7 @@ We can do the following with deployments:
 
 - Roll out a ReplicaSet through a deployment (_happens by default when creating a deployment_)
 - Update a deployment (_i.e. update applications and their environment_)
-- Roll back to older versions of a deployment
-- Roll forward to newer versions of a deployment
+- Roll back to previous versions of a deployment (_evey rollback is counted as an update, so no "roll forwards" are possible_)
 - Scale a deployment (_similar to scaling a ReplicaSet_)
 - Pausing and resuming a deployment (_to make changes without simultaneously creating and destroying pods_)
 - Observe the deployment status of the application(s) being deployed
