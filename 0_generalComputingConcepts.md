@@ -90,3 +90,6 @@ An API endpoint is a digital location where an API receives requests for a speci
 > References:
 > - https://blog.hubspot.com/website/api-endpoint
 > - https://www.techtarget.com/searchapparchitecture/definition/API-endpoint
+
+## Proxy & reverse proxy
+A proxy (also called forward proxy) is a component in a network that enables nodes in a private network to access a wider network. A reverse proxy is a component in a network that enables nodes outside a private subnet from accessing the private subnet's nodes. A load balancer is an example of a reverse proxy.
