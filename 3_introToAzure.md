@@ -1,5 +1,8 @@
 
 # Introduction to Azure
+
+> To get started with Azure: https://azure.microsoft.com/en-in/.
+
 ## Relevance of Azure for Kubernetes
 **_First, a recap..._**
 
