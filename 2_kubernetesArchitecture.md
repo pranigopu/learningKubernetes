@@ -1,4 +1,3 @@
-
 # Kubernetes architecture
 ## Basic terms
 _Note that all these terms are defined in the context of Kubernetes._
@@ -72,12 +71,15 @@ A service is a method for exposing a network application (_i.e. an application r
 > Extra reference: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
 
 #### Service types
-To expose pods internally (i.e. within the cluster), we use the _ClusterIP_ service. To expose pods externally (i.e. both within and outside the cluster), we can use _LoadBalancer_, _NodePort_ or _Ingress_ services.
+To expose pods internally (i.e. within the cluster), we use the _ClusterIP_ service. To expose pods externally (i.e. both within and outside the cluster), we can use _LoadBalancer_, _NodePort_ or _Ingress_ services. Note that the _ClusterIP_ service is the default; without specifying the service type, a created service defaults to _ClusterIP_.
 
 #### Azure Kubernetes Service (AKS)
 When creating a Kubernetes cluster in an Azure resource group, Azure creates an Azure Kubernetes Service (AKS) that exposes the pods of the whole cluster to our Azure subscription. In essence, an AKS cluster is in fact a service that exposes the whole cloud-native Kubernetes cluster (the Kubernetes cluster that resides in Azure's virtual machines) to our Azure subscription so that we (the Azure subscriber) can access and manage the cloud-native Kubernetes cluster.
 
 To us, the users, AKS is presented as a ClusterIP service that exposes the cluster internally, but in fact, AKS is exposing the actual Kubernetes cluster externally, i.e. to the cloud provider subscription.
+
+#### Frontend & backend
+With respect to exposing application through a service, frontend refers to the software component that is connected to the broader network as well as the cluster, while maintaining a mapping between the IP addresses of the cluster and their virtual network addresses (i.e. internal addresses within the cluster). The backend refers to the components on which the application is running (the pods, nodes, etc.).
 
 ### Workload
 An application running on Kubernetes. Regardless of whether a workload has a single component or several, it is run within a set of pods.
