@@ -2,10 +2,7 @@
 **(YAML, i.e. Yet Another Markup Language)**
 
 ## Introduction
-Contrary to what the name suggests, YAML is not a markup language, as we shall see. A markup language is a coded means (i.e. a method that uses specific symbols and syntax) to control a document's structure, formatting and the relationships between its parts; this is not what YAML does.
-
-### Preliminary concepts
-**Data serialization** is the process of translating a data structure or object into a format that can be stored (ex. files in secondary storage devices, data buffers in primary storage devices) or transmitted (ex. data streams over computer networks) and reconstructed later (possibly in a different computer environment).
+Contrary to what the name suggests, YAML is not a markup language. A markup language is a coded means (i.e. a method that uses specific symbols and syntax) to control a document's structure, formatting and the relationships between its parts. YAML, however, is a data serialization language. **Data serialization** is the process of translating a data structure or object into a format that can be stored (ex. files in secondary storage devices, data buffers in primary storage devices) or transmitted (ex. data streams over computer networks) and reconstructed later (possibly in a different computer environment).
 
 > Source: https://en.wikipedia.org/wiki/Serialization
 
