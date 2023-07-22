@@ -24,7 +24,7 @@ In general, the process of mounting comprises the OS
 
 1. Acquiring access to the storage medium
 2. Recognizing, reading and processing filesystem structure + metadata on it
-3. Registering the above to the  virtual filesystem (VFS) component
+3. Registering the above to the virtual filesystem (VFS) component
 
 The location in the VFS to which the newly mounted medium was registered is called a mount point. When the mounting process is completed, the user can access the storage medium's files and directories from the mount point.
 
