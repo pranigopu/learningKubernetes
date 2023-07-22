@@ -4,6 +4,8 @@ _Note that all these terms are defined in the context of Kubernetes._
 
 > Reference for the following (search as needed): https://kubernetes.io/docs/concepts/
 
+**NOTE**: Kubernetes object means Kubernetes API-object (i.e. an object from the perspective of the Kubernetes API).
+
 ### Pod
 A pod is a logical wrapper within Kubernetes for one or more containers. **_In essence, a pod represents a set of running containers on your cluster_**. Note that just as a container is the basic software unit of Docker, so is pod the basic software unit (_i.e. the fundamental building block_) of Kubernetes. Containers are encapsulated within pods. Some points on pods...
 
@@ -86,6 +88,10 @@ An application running on Kubernetes. Regardless of whether a workload has a sin
 
 ### Service account
 A type of non-human account (i.e. unique identification) that provides a distinct identity in a cluster. A service account is managed by a _ServiceAccount_ object in Kubernetes. Pods, nodes and other entities inside and outside the cluster can use a specific _ServiceAccount_'s credentials to identify as that _ServiceAccount_. This identity is useful in various situations, including authenticating to the API server or implementing identity-based security policies.
+
+---
+
+_We have only looked at the concepts needed to understand the Kubernetes architecture. More Kubernetes-related concepts are discussed in another document_.
 
 ## Kubernetes architecture
 ### Container runtime
