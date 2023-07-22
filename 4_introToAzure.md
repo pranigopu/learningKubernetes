@@ -1,4 +1,3 @@
-
 # Introduction to Azure
 
 > To get started with Azure: https://azure.microsoft.com/en-in/.
