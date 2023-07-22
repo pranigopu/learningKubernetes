@@ -4,7 +4,7 @@
 ## Tools used
 ### Kubernetes-specific tools
 #### kubectl
-The Kubernetes command-line tool **kubectl** enables you to run commands for Kubernetes clusters. You can use kubectl to...
+The Kubernetes command-line tool **kubectl** enables you to run commands for Kubernetes clusters. In fact, kubectl provides an interface to control the Kubernetes cluster manager. You can use kubectl to...
 
 - Deploy applications
 - Inspect and manage cluster resources
@@ -441,8 +441,8 @@ Just like ReplicaSets, deployments can be used to expose application(s) and the 
 ##### Advantage of exposing deployments instead of particular pods
 Exposing deployments has the same essential advantage as exposing ReplicaSets (_discussed in the previous section_).
 
-## Some extra notes
-### Separating resource type names and instance names in kubectl
+### Some extra notes
+#### Separating resource type names and instance names in kubectl
 When mentioning resource types and their instances (in any command; get, describe, scale, set...), we can either use a space or a slash to separate the resource type name and the instance name(s). For example...
 
 `kubectl get pod/pod1`
@@ -450,3 +450,24 @@ When mentioning resource types and their instances (in any command; get, describ
 ... is the same as ...
 
 `kubectl get pod pod1`
+
+## Storage through AKS (Azure disks)
+### Introduction
+Azure Disk Storage (ADS) offers high-performance, highly durable (i.e. failure-resistant) volumes (i.e. block storage) for our workloads (i.e. our applications running on Kubernetes). **_We can mount these volumes as devices on our virtual machines and container instances_**.
+
+Advantageous features of ADS:
+
+- Cost-effective, especially when handling:
+	- Unexpected traffic
+	- Batch jobs
+- Resiliency (i.e. durability) (0% annual failure rate, providing consistent enterprise-level durability)
+- Seamless scalability
+- Built-in security (automatic and manual encryption available to protect data)
+
+Concepts used by ADS:
+
+- Storage class
+- Persistent volumes & persistent volume claims
+- Config map
+- Environment variables
+- Volumes & volume mounts
