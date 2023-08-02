@@ -1,4 +1,20 @@
 # More Kubernetes concepts
+_Note that all these terms are defined in the context of Kubernetes._
+
+> Reference for the following (search as needed): https://kubernetes.io/docs/concepts/
+
+**NOTE**: Kubernetes object means Kubernetes API-object (i.e. an object from the perspective of the Kubernetes API).
+
+## ConfigMaps
+
+> Reference: https://kubernetes.io/docs/concepts/configuration/configmap/
+
+### Definition
+A ConfigMap is a Kubernetes object used to store non-confidential data in key-value pairs (as in a dictionary).  Pods can use ConfigMaps as environment variables, command-line arguments, or as configuration files for a volume (discussed in the section on storage).
+
+### Purpose
+A ConfigMap allows us to decouple environment-specific configuration from our container images, so that our applications (as deployed through Kubernetes) are easily portable.
+
 ## Storage in Kubernetes
 ### 1. Volume
 #### 1.1. Introduction to the need
@@ -84,3 +100,20 @@ Other properties defined in a storage class are:
 	- Determines when persistent volumes should be provisioned
 	- Default value: `Immediate` (_i.e. immediately after persistent volume claim is made_)
 	- Other values: `WaitForFirstConsumer` (_i.e. only after a pod using the claim is created_)
+
+**NOTE (volume binding options)**: The `WaitForFirstConsumer` option has the advantage that the allocated storage would be placed in the same physical location as the first pod requesting it, which can reduce memory access latency.
+
+### 3. Persistent volume claims (PVCs)
+
+> Reference: https://bobcares.com/blog/kubernetes-persistent-volume-claim
+
+#### 3.1. Introduction to the need
+We had mentioned before that volumes, and specifically persistent volumes, can be dynamically allocated to pods using storage classes. The mechanism through which pods request storage via storage classes is PVC.
+
+#### 3.2. Definition
+A persistent volume claim (represented by a PersistentVolumeClaim object in Kubernetes) is a persistent storage request that refers to a specific storage class instead of the persistent volume. _Note again that storage classes indicate properties of storage devices such as performance, service levels, and back-end policies, can be defined by administrators; the required amount storage devices matching these properties are assigned to the pods via the storage class_.
+
+**NOTE 1**: The PVC approach of requesting storage in Kubernetes has the advantage of allowing developers to dynamically request storage resources without knowing how the underlying storage devices are implemented.
+
+### 4. Using ConfigMaps to configure volumes in volume requests
+More details will be discussed in the documents discussing the practical side. However, note that ConfigMaps can be used to specify the behavior of a containerized application, including say a MySQL application.
