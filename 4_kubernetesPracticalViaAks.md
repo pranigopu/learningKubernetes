@@ -462,6 +462,10 @@ When mentioning resource types and their instances (in any command; get, describ
 
 `kubectl get pod pod1`
 
+#### Re-exposing an updated object
+
+When a Kubernetes object such as a deployment, ReplicaSet or pod is being exposed externally by a certain service, and when we update this object, we must remember to re-expose it with a new service in order to see the updates reflected in the exposed application (otherwise the old service would continue exposing the older version of the object).
+
 ## Storage through AKS (Azure disks)
 ### Introduction
 Azure Disk Storage (ADS) offers high-performance, highly durable (i.e. failure-resistant) volumes (i.e. block storage) for our workloads (i.e. our applications running on Kubernetes). **_We can mount these volumes as devices on our virtual machines and container instances_**.
