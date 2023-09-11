@@ -68,12 +68,27 @@ Kubernetes policies are configurations (_i.e. settings or specifications_) that 
 ### Service
 An abstraction that defines a logical set of pods and a policy by which to access them. The particular pods in the set are disposable and replaceable (_as long as their replacements can satisfy the required role_).
 
-A service is a method for exposing a network application (_i.e. an application running on a network of interconnected nodes_) that is running as one or more pods in the cluster. A service also provides a stable virtual ID by which to access the network application despite it being run on a set of disposable pods that may vary over time. Lastly, a service also acts as a load balancer for the set of pods associated to it at a given point in time.
+A service is a method for exposing a network application (_i.e. an application running on a network of interconnected nodes_) that is running as one or more pods in the cluster. A service also provides a stable virtual ID by which to access the network application despite it being run on a set of disposable pods that may vary over time. Lastly, a service also acts as a load balancer for the set of pods associated to it at a given point in time. Note that a service may either expose a set of pods internally (within the cluster's virtual network) or externally (outside the cluster's virtual network). An exception is the _ExternalName_ service (discussed more shortly), which exposes an external resource to the cluster rather than exposing the cluster's pods.
 
-> Extra reference: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+Services and pods are connected through labels and selectors, wherein the service is given a selector field to help select the pods with the given labels. Of course, an _ExternalName_ service works differently, using the cluster's DNS to look for, map to and expose the particular external resource.
+
+**NOTE**: Just as container instances within pods can be accessed using the `kubectl run` command, so can a service itself (_wherein we would be accessing the networked application being exposed by the service, which could as well be a single container instance_).
+
+> Extra references:
+> - On services in general: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/\
+> - On _ExternalName_ service: https://www.ithands-on.com/2021/04/kubernetes-101-external-services.html
 
 #### Service types
-To expose pods internally (i.e. within the cluster), we use the _ClusterIP_ service. To expose pods externally (i.e. both within and outside the cluster), we can use _LoadBalancer_, _NodePort_ or _Ingress_ services. Note that the _ClusterIP_ service is the default; without specifying the service type, a created service defaults to _ClusterIP_.
+To expose pods internally (i.e. within the cluster), we use the _ClusterIP_ service. To expose pods externally (i.e. both within and outside the cluster), we can use _LoadBalancer_, _NodePort_, _Ingress_ or _ExternalName_ services. Note that the _ClusterIP_ service is the default; without specifying the service type, a created service defaults to _ClusterIP_.
+
+##### ExternalName service
+This service maps itself to the contents of the  `externalName`  field in the YAML manifest (for example, to the hostname  `api.x.x.x`). In other words, it maps to and thus exposes an external resource (such as a database server) to the objects within the cluster. More specifically, the mapping configures your cluster's DNS server to return a  `CNAME`  record (_CNAME means "Canonical Name", i.e. the true name of the resource, as opposed to an alias_) with that external hostname value (i.e. `api.x.x.x`).
+
+**NOTE**: The hostname value becomes to alias, whereas the IP address of the resource is the CNAME.
+
+> Extra references:
+> - https://kubernetes.io/docs/concepts/services-networking/service/#externalname
+> - https://www.ithands-on.com/2021/04/kubernetes-101-external-services.html
 
 #### Azure Kubernetes Service (AKS)
 When creating a Kubernetes cluster in an Azure resource group, Azure creates an Azure Kubernetes Service (AKS) that exposes the pods of the whole cluster to our Azure subscription. In essence, an AKS cluster is in fact a service that exposes the whole cloud-native Kubernetes cluster (the Kubernetes cluster that resides in Azure's virtual machines) to our Azure subscription so that we (the Azure subscriber) can access and manage the cloud-native Kubernetes cluster.
