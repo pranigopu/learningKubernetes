@@ -35,7 +35,7 @@ This means the `config` file here is currently set to refer to the cluster `aks-
 
 #### View nodes in the cluster
 
-`kubectl get node`<br>OR<br>`kubectl get node`
+`kubectl get node`<br>OR<br>`kubectl get nodes`
 
 **_Results..._**
 
